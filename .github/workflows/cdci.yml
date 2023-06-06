@@ -146,13 +146,14 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Print environment variables
+      # Pull the image from ECR
+      - name: Pull image
         run: |
-          echo "ECR_REGISTRY: $ECR_REGISTRY"
-          echo "ECR_REPOSITORY: $ECR_REPOSITORY"
-          echo "IMAGE_TAG: $IMAGE_TAG"
-      - name: Run Docker image
-        run: docker run -d -p 8080:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: Check Docker container status
-        run: docker ps
+          docker pull i4s3a1l6/cdci:A01029956
+          docker image ls -a
+      # Run the image
+      - name: Run image
+        run: |
+          docker run -d -p 80:80 i4s3a1l6/cdci:A01029956
+          docker ps -a
           
