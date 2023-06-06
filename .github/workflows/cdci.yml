@@ -152,8 +152,7 @@ jobs:
           echo "ECR_REPOSITORY: $ECR_REPOSITORY"
           echo "IMAGE_TAG: $IMAGE_TAG"
       - name: Run Docker image
-        run: |
-          docker run -d -p 8080:80 "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+        run: docker run -d -p 8080:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - name: Check Docker container status
         run: docker ps
           
